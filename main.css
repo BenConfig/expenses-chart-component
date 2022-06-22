@@ -55,6 +55,7 @@ body {
 body > * {
     width: min(100%, 33.75rem);
     border-radius: var(--br-md);
+    margin: auto;
     overflow: hidden;
 }
 
