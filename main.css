@@ -1,0 +1,213 @@
+/* ------------------------------------------------------ */
+/*                          Fonts                         */
+/* ------------------------------------------------------ */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+/* ------------------------------------------------------ */
+/*                    Custom Properties                   */
+/* ------------------------------------------------------ */
+:root {
+    /* Font Weights */
+    --fw-normal: 400;
+    --fw-bold: 700;
+
+    /* Border Radii */
+    --br-sm: .3125rem;
+    --br-md: clamp(.625rem, -.5625rem + 4.98vw, 1.25rem);
+
+    /* Colors */
+    --clr-body-bg: 27, 66%, 92%;
+    --clr-dark: 25, 47%, 15%;
+    --clr-highest-spend: 186, 34%, 60%;
+    --clr-main-bg: 33, 100%, 98%;
+    --clr-my-balance-bg: 10, 79%, 65%;
+    --clr-text: 28, 10%, 53%;
+    --clr-white: 0, 0%, 100%;
+
+    /* Animation Durations */
+    --ad-sm: 250ms;
+}
+
+/* ------------------------------------------------------ */
+/*                Resets and Global Styles                */
+/* ------------------------------------------------------ */
+* { box-sizing: border-box; }
+
+.sr-only {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+body, p,
+h2, h3 { margin: 0; }
+
+body {
+    display: grid;
+    place-content: center;
+    gap: clamp(1rem, .0625rem + 3.98vw, 1.5rem);
+    min-height: 100vh;
+    font: var(--fw-normal) 1rem/1.25 'DM Sans', sans-serif;
+    padding: 4.1875rem 1rem;
+    background: hsl(var(--clr-body-bg));
+}
+
+body > * {
+    width: min(100%, 33.75rem);
+    border-radius: var(--br-md);
+    overflow: hidden;
+}
+
+main {
+    padding-top: clamp(1.375rem, .0875rem + 5.47vw, 2.0625rem);
+    padding-inline: clamp(1.25rem, -1.0625rem + 9.95vw, 2.5rem);
+    padding-bottom: 2.625rem;
+    color: hsl(var(--clr-text));
+    background: hsl(var(--clr-main-bg));
+}
+
+/* ------------------------------------------------------ */
+/*                       My Balance                       */
+/* ------------------------------------------------------ */
+.my-balance {
+    padding-top: clamp(1.1875rem, .125rem + 4.48vw, 1.75rem);
+    padding-inline: clamp(1.25rem, -.125rem + 5.97vw, 2rem);
+    padding-bottom: clamp(1.375rem, .9375rem + 1.99vw, 1.625rem); 
+    color: hsl(var(--clr-white));
+    background: url('images/logo.svg') no-repeat
+                center right clamp(1.50rem, calc(-0.25rem + 7.46vw), 2.44rem) /
+                clamp(3.75rem, calc(2.35rem + 5.97vw), 4.50rem),
+                hsl(var(--clr-my-balance-bg));
+}
+
+.my-balance__heading {
+    font-size: clamp(1rem, .75rem + 1vw, 1.125rem);
+    font-weight: var(--fw-normal);
+    margin-bottom: clamp(.375rem, .125rem + 1vw, .5625rem);
+}
+
+.my-balance__figure {
+    font-size: clamp(1.5rem, .5625rem + 3.98vw, 2rem);
+    font-weight: var(--fw-bold);
+}
+
+/* ------------------------------------------------------ */
+/*                        Spending                        */
+/* ------------------------------------------------------ */
+.spending__heading {
+    font-size: clamp(1.5rem, .5625rem + 3.98vw, 2rem);
+    color: hsl(var(--clr-dark));
+}
+
+.spending__bar-chart {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    align-items: end;
+    gap: clamp(.75rem, .0625rem + 2.99vw, 1.125rem);
+    margin-bottom: clamp(1.5625rem, .63rem + 3.98vw, 2.0625rem);
+}
+
+.spending__day {
+    position: relative;
+    text-align: center;
+    padding-top: 3rem;
+    margin-top: clamp(0rem, -2.25rem + 9.45vw, 1.1875rem);
+    cursor: pointer;
+}
+
+.spending__day-bar {
+    position: relative;
+    display: block;
+    border-radius: var(--br-sm);
+    margin-bottom: .4375rem;
+    background: hsl(var(--clr-my-balance-bg));
+}
+
+.spending__day-bar::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: hsla(var(--clr-white), .3);
+    opacity: 0;
+    transition: opacity var(--ad-sm);
+}
+
+.spending__day-name { font-size: clamp(.75rem, .25rem + 1.99vw, 1rem); }
+
+.spending__day-amount {
+    position: absolute;
+    z-index: 1;
+    top: clamp(0rem, 1.4375rem + -3.98vw, .5rem);
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: clamp(.6875rem, -.125rem + 3.48vw, 1.125rem);
+    letter-spacing: .01em;
+    padding-block: .5625rem .5rem;
+    padding-inline: clamp(.25rem, -.25rem + 1.99vw, .5rem);
+    border-radius: var(--br-sm);
+    color: hsl(var(--clr-white));
+    background: hsl(var(--clr-dark));
+    pointer-events: none;
+    transition: transform var(--ad-sm) ease-out, opacity var(--ad-sm);
+}
+
+@media (hover: hover) {
+    .spending__day-amount {
+        visibility: hidden;
+        transform: translateX(-50%) scale(0);
+        transform-origin: bottom;
+        opacity: 0;
+        transition: transform var(--ad-sm) ease-out, opacity var(--ad-sm);
+    }
+}
+
+/* ------------------- Hover and Focus ------------------ */
+.spending__day:focus { outline: none; }
+
+.spending__day:hover > .spending__day-bar::after,
+.spending__day:focus-visible > .spending__day-bar::after { opacity: 1; }
+
+.spending__day:hover > .spending__day-amount,
+.spending__day:focus-visible > .spending__day-amount  {
+    visibility: visible;
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+}
+
+/* ------------------------------------------------------ */
+/*                          Total                         */
+/* ------------------------------------------------------ */
+.total {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0 1rem;
+    padding-top: clamp(1.4375rem, .25rem + 4.98vw, 2.0625rem);
+    border-top: .125rem solid hsl(var(--clr-body-bg));
+}
+
+.total__heading {
+    flex: 100%;
+    font-size: clamp(1rem, .75rem + 1vw, 1.125rem);
+    font-weight: var(--fw-normal);
+    letter-spacing: .0075em;
+    margin-bottom: .1875rem;
+}
+
+.total__figure {
+    font-size: clamp(1.875rem, -.125rem + 8.46vw, 2.9375rem);
+    font-weight: var(--fw-bold);
+    letter-spacing: .01em;
+    color: hsl(var(--clr-dark));
+}
+
+.total__variance { font-size: clamp(1rem, .75rem + 1vw, 1.125rem); }
+
+.total__variance-figure {
+    display: block;
+    font-weight: var(--fw-bold);
+    text-align: right;
+    margin-bottom: clamp(0rem, -.25rem + 1vw, .125rem);
+    color: hsl(var(--clr-dark));
+}

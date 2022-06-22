@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="main.css">
+    <title>Frontend Mentor | Expenses Chart Component</title>
+  </head>
+
+  <body>
+
+    <header class="header">
+      <h1 class="sr-only">Expenses Chart</h1>
+      <section class="my-balance">
+        <h2 class="my-balance__heading">My balance</h2>
+        <p class="my-balance__figure">$921.48</p>
+      </section>
+    </header>
+
+    <main>
+
+      <section class="spending">
+        <h2 class="spending__heading">Spending - Last 7 days</h2>
+        <div class="spending__bar-chart">
+          <!-- Bar chart data added with JS -->
+        </div>
+      </section>
+
+      <section class="total">
+        <h3 class="total__heading">Total this month</h3>
+        <output class="total__figure">$478.33</output>
+        <p class="total__variance">
+          <output class="total__variance-figure">+2.4%</output> from last month
+        </p>
+      </section>
+      
+    </main>
+
+    <script src="main.js"></script>
+  </body>
+</html>
